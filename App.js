@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { StyleSheet, View, FlatList, Text, Pressable } from "react-native";
+import { StatusBar } from "expo-status-bar";
 
 import { GoalText } from "./components/GoalText";
 import { GoalInput } from "./components/GoalInput";
@@ -31,39 +32,42 @@ export default function App() {
     setModalVisibilty(!isModalVisible);
   };
   return (
-    <View style={styles.container}>
-      <View style={styles.addGoalStyle}>
-        <Pressable onPress={changeVisibility}>
-          <Text style={styles.buttonTextStyle}>Click Me To Add Goal</Text>
-        </Pressable>
-      </View>
+    <>
+      <StatusBar style="light" />
+      <View style={styles.container}>
+        <View>
+          <Pressable onPress={changeVisibility} style={styles.addGoalStyle}>
+            <Text style={styles.buttonTextStyle}>Click Me To Add Goal</Text>
+          </Pressable>
+        </View>
 
-      <GoalInput
-        textValue={textValue}
-        handleTextChange={handleTextChange}
-        handleGoalText={handleGoalText}
-        isModalVisible={isModalVisible}
-        changeVisibility={changeVisibility}
-      />
-
-      <View style={styles.goalsContainer}>
-        <FlatList
-          data={goalText}
-          renderItem={(itemData) => {
-            return (
-              <GoalText
-                text={itemData.item.text}
-                itemId={itemData.item.id}
-                deleteGoal={deleteGoal}
-              />
-            );
-          }}
-          keyExtractor={(itemData, index) => {
-            return itemData.id;
-          }}
+        <GoalInput
+          textValue={textValue}
+          handleTextChange={handleTextChange}
+          handleGoalText={handleGoalText}
+          isModalVisible={isModalVisible}
+          changeVisibility={changeVisibility}
         />
+
+        <View style={styles.goalsContainer}>
+          <FlatList
+            data={goalText}
+            renderItem={(itemData) => {
+              return (
+                <GoalText
+                  text={itemData.item.text}
+                  itemId={itemData.item.id}
+                  deleteGoal={deleteGoal}
+                />
+              );
+            }}
+            keyExtractor={(itemData, index) => {
+              return itemData.id;
+            }}
+          />
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { StyleSheet, View, FlatList, Button } from "react-native";
+import { StyleSheet, View, FlatList, Text, Pressable } from "react-native";
 
 import { GoalText } from "./components/GoalText";
 import { GoalInput } from "./components/GoalInput";
@@ -32,11 +32,12 @@ export default function App() {
   };
   return (
     <View style={styles.container}>
-      <Button
-        title="Click Me To Add Goal"
-        color="#841584"
-        onPress={changeVisibility}
-      />
+      <View style={styles.addGoalStyle}>
+        <Pressable onPress={changeVisibility}>
+          <Text style={styles.buttonTextStyle}>Click Me To Add Goal</Text>
+        </Pressable>
+      </View>
+
       <GoalInput
         textValue={textValue}
         handleTextChange={handleTextChange}
@@ -72,7 +73,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     flex: 1,
   },
+  addGoalStyle: {
+    backgroundColor: "purple",
+    borderRadius: 5,
+    padding: 10,
+    flexDirection: "row",
+    justifyContent: "center",
+  },
   goalsContainer: {
     flex: 5,
+  },
+  buttonTextStyle: {
+    justifyContent: "center",
+    color: "white",
+    fontWeight: "600",
   },
 });
